@@ -8,6 +8,7 @@ var session = require('express-session');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var top = require('./routes/top');
 //boardsのルーティング設定
 var boards = require('./routes/boards');
 var register = require('./routes/register'); //registerのルーティング
@@ -41,6 +42,7 @@ app.use('/boards', setUser, boards); //boardsはrequire('./routes/boards')のこ
 app.use('/register', register); //urlのregisterが使えるようになる。
 app.use('/login', login);
 app.use('/logout',logout);
+app.use('/top', top);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
