@@ -12,6 +12,8 @@ var usersRouter = require('./routes/users');
 var boards = require('./routes/boards');
 var register = require('./routes/register'); //registerのルーティング
 var login = require('./routes/login');
+var logout = require('./routes/logout');
+//ログインしているかどうかを確認する
 var setUser = require('./setUser');
 
 var app = express();
@@ -38,6 +40,7 @@ app.use('/users', usersRouter);
 app.use('/boards', setUser, boards); //boardsはrequire('./routes/boards')のこと
 app.use('/register', register); //urlのregisterが使えるようになる。
 app.use('/login', login);
+app.use('/logout',logout);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
