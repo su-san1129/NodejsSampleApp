@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
       title: 'Express',
       //データベースを取得
       boardList: rows
-      });
+    });
   });
 });
 
