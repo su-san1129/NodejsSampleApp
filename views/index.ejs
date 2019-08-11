@@ -15,8 +15,10 @@
         <% boardList.forEach(function(boardItem) { %>
           <li class="main-list__item">
             <div class="board">
-              <p class="board__title"><%= boardItem.title %></p>
-              <p class="board__date"><%= boardItem.created_at %></p>
+              <a href="/boards/<%= boardItem.board_id %>" class="board">
+                <p class="board__title"><%= boardItem.title %></p>
+                <p class="board__date"><%= boardItem.created_at %></p>
+              </a>
             </div>
           </li>
         <% }); %>
