@@ -8,6 +8,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 //boardsのルーティング設定
 var boards = require('./routes/boards');
+var register = require('./routes/register'); //registerのルーティング
 
 var app = express();
 
@@ -25,6 +26,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 //ミドルウェアの呼び出しを行っている。
 app.use('/boards', boards); //boardsはrequire('./routes/boards')のこと
+app.use('/register', register); //urlのregisterが使えるようになる。
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

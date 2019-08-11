@@ -9,9 +9,10 @@ router.get('/:board_id', function(req,res, next){
   //データベースからboard_idを検索, boardIdと一致するか検索
   var getBoardQuery = 'SELECT * FROM boards WHERE board_id = ' + boardId;
   var getMessagesQuery = 'SELECT *, DATE_FORMAT(created_at, \'%Y年%m月%d日 %k時%i分%s秒\') AS created_at FROM messages WHERE board_id = ' + boardId;
-  connection.query(getBoardQuery, function(err, board){
-    connection.query(getMessagesQuery, function(err, messages){
-      res.render('board',{
+  //非同期処理のためネストが深い
+  connection.query(getBoardQuery, function(err, board){ //実行順序1
+    connection.query(getMessagesQuery, function(err, messages){ //実行順序2
+      res.render('board',{ //実行順序3
         title: board[0].title,
         board: board[0],
         messageList: messages
