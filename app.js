@@ -3,12 +3,15 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+//expressでセッションを使うためのモジュール
+var session = require('express-session')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 //boardsのルーティング設定
 var boards = require('./routes/boards');
 var register = require('./routes/register'); //registerのルーティング
+var login = require('./routes/login');
 
 var app = express();
 
