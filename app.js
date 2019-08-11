@@ -6,6 +6,8 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+//boardsのルーティング設定
+var boards = require('./routes/boards');
 
 var app = express();
 
@@ -21,6 +23,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+//ミドルウェアの呼び出しを行っている。
+app.use('/boards', boards); //boardsはrequire('./routes/boards')のこと
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

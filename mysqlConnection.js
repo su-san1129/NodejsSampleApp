@@ -6,7 +6,7 @@ var dbConfig = {
   password: '',
   database: 'bulletin_board'
 };
-
-var connection = mysql.createConnection(dbConfig);
+//createConnectionにデータベースに必要な情報を記載
+var connection = mysql.createConnection(dbConfig); //引数にdbConfigを指定
 
 module.exports = connection;
