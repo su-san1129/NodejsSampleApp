@@ -2,6 +2,10 @@ var express = require('express');
 var router = express.Router();
 var moment = require('moment');
 var connection = require('../mysqlConnection');
+//パスワードのハッシュ化
+var bcrypt = require('bcrypt');
+//ソルト値の加工コストを決める
+var saltRounds = 10;
 
 router.get('/', function(req, res, next){
   res.render('register',{
@@ -12,7 +16,9 @@ router.get('/', function(req, res, next){
 router.post('/', function(req, res, next) {
   var userName = req.body.user_name;
   var email = req.body.email;
-  var password = req.body.password;
+  var salt = bcrypt.genSaltSync(saltRounds);
+  var password = bcrypt.hashSync(req.body.password, salt);
+  //formから受け取ったパスワードをハッシュに変換
   var createdAt = moment().format('YYYY-MM-DD HH:mm:ss');
   //データベースとemailの照合を行う。
   var emailExistsQuery = 'SELECT * FROM users WHERE email = "' + email + '" LIMIT 1'; // 追加
