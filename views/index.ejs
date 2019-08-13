@@ -15,7 +15,7 @@
         <% boardList.forEach(function(boardItem) { %>
           <li class="main-list__item">
             <div class="board">
-              <a href="/boards/<%= boardItem.board_id %>" class="board">
+              <a href="/boards/<%= boardItem.id %>" class="board">
                 <p class="board__title"><%= boardItem.title %></p>
                 <p class="board__date"><%= boardItem.created_at %></p>
               </a>
@@ -25,6 +25,7 @@
       </ul>
       <% if (typeof user !== 'undefined') {%>
         <span class="login-user"><%= user.user_name %>さんとしてログインしています。</span>
+        <a href="/logout">ログアウト</a>
       <% } %>
     </div>
   </body>
