@@ -24,7 +24,7 @@
           </ul>
         </div>
       <% } %>
-      <form action="/boards/<%= board.board_id %>" method="post" class="board-form">
+      <form action="/boards/<%= board.id %>" method="post" class="board-form">
         <input type="text" name="message" class="input" required>
         <button type="submit" class="submit">投稿</button>
       </form>
