@@ -43,6 +43,7 @@ app.use('/logout',logout);
 app.use('/top', top);
 app.use('/register', register); //urlのregisterが使えるようになる。
 app.use('/users', usersRouter);
+//プログラムが読まれる順番を考慮し、app.useにsetUserに適用。
 app.use(setUser)
 app.use('/', indexRouter);
 //ミドルウェアの呼び出しを行っている。

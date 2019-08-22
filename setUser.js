@@ -7,9 +7,11 @@ module.exports = function(req, res, next){
     var query = 'SELECT id,user_name FROM users WHERE id = ' + userId;
     connection.query(query, function(err, rows){
       if (!err) {
-        // res.render('index,{ user: user}')の書き換え？
+        // res.render('index,{ user: user}')の書き換え
+        // ローカル変数の適用↑↑
         res.locals.user = rows.length? rows[0]: false;
       }
+      //もし、sessionにユーザーIDがセットされていれば、次の処理に移る。
       next();
     });
   } else {
