@@ -10,7 +10,10 @@ module.exports = function(req, res, next){
         // res.render('index,{ user: user}')の書き換え？
         res.locals.user = rows.length? rows[0]: false;
       }
+      next();
     });
+  } else {
+    next();
   }
-  next();
+
 };

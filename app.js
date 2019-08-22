@@ -30,6 +30,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//sessionを利用する際の詳細
 app.use(session({
   //sessionIDの署名
   secret: 'keyboard cat',
@@ -37,14 +38,17 @@ app.use(session({
   saveUninitialized: true
 }));
 
-app.use('/',setUser, indexRouter);
-app.use('/users', usersRouter);
-//ミドルウェアの呼び出しを行っている。
-app.use('/boards', setUser, boards); //boardsはrequire('./routes/boards')のこと
-app.use('/register', register); //urlのregisterが使えるようになる。
 app.use('/login', login);
 app.use('/logout',logout);
 app.use('/top', top);
+app.use('/register', register); //urlのregisterが使えるようになる。
+app.use('/users', usersRouter);
+app.use(setUser)
+app.use('/', indexRouter);
+//ミドルウェアの呼び出しを行っている。
+app.use('/boards', boards); //boardsはrequire('./routes/boards')のこと
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
