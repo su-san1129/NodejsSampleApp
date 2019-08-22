@@ -13,7 +13,13 @@ module.exports = function(req, res, next){
       next();
     });
   } else {
-    next();
+    if (req.originalUrl === "/"){
+      res.redirect('top'); //もしルートパスへのアクセスならtopへと送る。
+    } else {
+    var redirect_url = req.originalUrl;
+    req.session.originalUrl = redirect_url; //sessionにURLを保存。ログインの処理に足す。
+    res.redirect('login');
+    console.log(req.session.originalUrl);
+    }
   }
-
 };
