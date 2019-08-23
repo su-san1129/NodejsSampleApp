@@ -19,19 +19,27 @@ router.post('/', function(req, res, next){
   // 一致しているemail,passwordのユーザーを一件返すsql文
   var query = 'SELECT id,password FROM users WHERE email = "' + email + '" LIMIT 1';
   connection.query(query, function(err, rows){
+    //ハッシュ化したパスワードが一致するかどうか確認。なければ、false
     var hashpass = rows.length? rows[0].password: false;
+    //↓あった場合
     if (hashpass){
     //一致しているユーザーをemailで探し、ハッシュ化した数値で照合
       if (bcrypt.compareSync(password, hashpass)) {
       //一致するデータがなければ、falseを返す
         var userId = rows.length? rows[0].id: false;
+        //passwordが一致し、userIdがあった場合
         if (userId) {
+          // 現在のuserIdをセッションに保存
           req.session.user_id = userId;
+          //セッションのurlを定義
           var sessionUrl = req.session.originalUrl;
+          //セッションのurlがあった場合
           if (sessionUrl){
+            //セッションのurlに飛ばす
             res.redirect(sessionUrl)
           } else {
-          res.redirect('/');
+            //セッションのurlがなかった場合
+            res.redirect('/');
           }
         } else {
           res.render('login', {
