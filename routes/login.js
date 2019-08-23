@@ -19,17 +19,25 @@ router.post('/', function(req, res, next){
   // 一致しているemail,passwordのユーザーを一件返すsql文
   var query = 'SELECT id,password FROM users WHERE email = "' + email + '" LIMIT 1';
   connection.query(query, function(err, rows){
+    var hashpass = rows.length? rows[0].password: false;
+    if (hashpass){
     //一致しているユーザーをemailで探し、ハッシュ化した数値で照合
-    if (bcrypt.compareSync(password, rows[0].password)) {
-    //一致するデータがなければ、falseを返す
-      var userId = rows.length? rows[0].id: false;
-      if (userId) {
-        req.session.user_id = userId;
-        var sessionUrl = req.session.originalUrl;
-        if (sessionUrl){
-          res.redirect(sessionUrl)
+      if (bcrypt.compareSync(password, hashpass)) {
+      //一致するデータがなければ、falseを返す
+        var userId = rows.length? rows[0].id: false;
+        if (userId) {
+          req.session.user_id = userId;
+          var sessionUrl = req.session.originalUrl;
+          if (sessionUrl){
+            res.redirect(sessionUrl)
+          } else {
+          res.redirect('/');
+          }
         } else {
-        res.redirect('/');
+          res.render('login', {
+            title: 'ログイン',
+            noUser: 'メールアドレスとパスワードが一致するユーザーはいません'
+          });
         }
       } else {
         res.render('login', {
