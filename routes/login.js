@@ -19,11 +19,11 @@ router.post('/', function(req, res, next){
   // 一致しているemail,passwordのユーザーを一件返すsql文
   var query = 'SELECT id,password FROM users WHERE email = "' + email + '" LIMIT 1';
   connection.query(query, function(err, rows){
-    //ハッシュ化したパスワードが一致するかどうか確認。なければ、false
+    //ハッシュ化したパスワードがあるか確認。なければ、false
     var hashpass = rows.length? rows[0].password: false;
     //↓あった場合
     if (hashpass){
-    //一致しているユーザーをemailで探し、ハッシュ化した数値で照合
+      //フォームへの入力値と、DBのPWが一致するか確認
       if (bcrypt.compareSync(password, hashpass)) {
       //一致するデータがなければ、falseを返す
         var userId = rows.length? rows[0].id: false;
