@@ -20,7 +20,7 @@ module.exports = function(req, res, next){
     } else {
     var redirect_url = req.originalUrl;
     req.session.originalUrl = redirect_url; //sessionにURLを保存。ログインの処理に足す。
-    res.redirect('login');
+    res.redirect('/login');
     console.log(req.session.originalUrl);
     }
   }

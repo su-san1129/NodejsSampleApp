@@ -25,7 +25,12 @@ router.post('/', function(req, res, next){
       var userId = rows.length? rows[0].id: false;
       if (userId) {
         req.session.user_id = userId;
+        var sessionUrl = req.session.originalUrl;
+        if (sessionUrl){
+          res.redirect(sessionUrl)
+        } else {
         res.redirect('/');
+        }
       } else {
         res.render('login', {
           title: 'ログイン',
